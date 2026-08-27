@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 
 function BrandSeal({ hero = false }: { hero?: boolean }) {
   if (!hero) {
@@ -153,6 +153,17 @@ const onlineServices = {
 
 type PricingZone = keyof typeof onlineServices;
 
+type DeliveryChannel = "whatsapp" | "email";
+
+function createRequestReference() {
+  const now = new Date();
+  const part = (value: number) => String(value).padStart(2, "0");
+  const date = `${now.getFullYear()}${part(now.getMonth() + 1)}${part(now.getDate())}`;
+  const time = `${part(now.getHours())}${part(now.getMinutes())}`;
+  const suffix = Math.random().toString(36).slice(2, 5).toUpperCase();
+  return `MBC-${date}-${time}-${suffix}`;
+}
+
 const commitments = [
   ["Confidentialité", "Les informations sont utilisées uniquement pour qualifier et traiter votre demande."],
   ["Langage clair", "Chaque recommandation est expliquée sans jargon inutile ni promesse irréaliste."],
@@ -168,23 +179,63 @@ export default function Home() {
   const [urgency, setUrgency] = useState("À planifier");
   const [meetingMode, setMeetingMode] = useState("Téléphone / visioconférence");
   const [pricingZone, setPricingZone] = useState<PricingZone>("senegal");
-  const [submitted, setSubmitted] = useState(false);
-
-  const reference = useMemo(
-    () => selectedJourney === null ? "À CRÉER" : `MBC-ORI-0${selectedJourney + 1}/2026`,
-    [selectedJourney],
-  );
+  const [requestReference, setRequestReference] = useState<string | null>(null);
+  const [deliveryChannel, setDeliveryChannel] = useState<DeliveryChannel | null>(null);
 
   function chooseJourney(index: number) {
     setSelectedJourney(index);
     setSubject(journeys[index].subject);
     setClientType(journeys[index].client);
-    setSubmitted(false);
+    setRequestReference(null);
+    setDeliveryChannel(null);
+  }
+
+  function prepareRequest(form: HTMLFormElement) {
+    if (!form.reportValidity()) return null;
+
+    const data = new FormData(form);
+    const value = (key: string) => String(data.get(key) ?? "").trim();
+    const reference = requestReference ?? createRequestReference();
+    const message = [
+      "Bonjour M. Bakhoum,",
+      "",
+      "Je souhaite soumettre une demande juridique à Mind Business Consulting.",
+      "",
+      `Référence : ${reference}`,
+      `Nom : ${value("nom")}`,
+      `Téléphone : ${value("telephone")}`,
+      `Profil : ${value("client")}`,
+      `Nature du besoin : ${value("sujet")}`,
+      `Niveau d’urgence : ${value("urgence")}`,
+      `Mode de rendez-vous : ${value("rendezvous")}`,
+      "",
+      "Contexte et résultat recherché :",
+      value("message"),
+      "",
+      "Je comprends que ce premier message sert à qualifier ma demande et ne vaut pas consultation juridique.",
+    ].join("\n");
+
+    setRequestReference(reference);
+    return { reference, message };
   }
 
   function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    const request = prepareRequest(event.currentTarget);
+    if (!request) return;
+
+    setDeliveryChannel("whatsapp");
+    window.open(`https://wa.me/221771513837?text=${encodeURIComponent(request.message)}`, "_blank", "noopener,noreferrer");
+  }
+
+  function prepareEmail(form: HTMLFormElement | null) {
+    if (!form) return;
+    const request = prepareRequest(form);
+    if (!request) return;
+
+    setDeliveryChannel("email");
+    const emailSubject = `Demande juridique MBC — ${request.reference}`;
+    window.location.href = `mailto:mamadou.bakhoum@outlook.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(request.message)}`;
   }
 
   return (
@@ -293,7 +344,7 @@ export default function Home() {
             <div className="orientation-result" aria-live="polite">
               <div className="result-stamp"><span>ORIENTATION</span><strong>MBC</strong></div>
               <div className="result-copy">
-                <span className="result-reference">Référence provisoire • {reference}</span>
+                <span className="result-reference">Orientation sélectionnée • {journeys[selectedJourney].code}</span>
                 <h3>{journeys[selectedJourney].recommendation}</h3>
                 <p><b>À préparer :</b> {journeys[selectedJourney].documents}.</p>
               </div>
@@ -519,10 +570,10 @@ export default function Home() {
             <p className="eyebrow">Ouvrir un dossier</p>
             <h2>Donnez-nous l’essentiel. MBC vous aide à structurer la suite.</h2>
             <p className="contact-lead">N’envoyez pas de documents confidentiels à cette étape. Décrivez simplement le contexte et le résultat recherché.</p>
-            <div className="contact-reference"><span>RÉFÉRENCE PROVISOIRE</span><strong>{reference}</strong><i className={selectedJourney !== null ? "active" : ""} /></div>
+            <div className="contact-reference"><span>RÉFÉRENCE DE LA DEMANDE</span><strong>{requestReference ?? "GÉNÉRÉE À L’ENVOI"}</strong><i className={requestReference ? "active" : ""} /></div>
             <dl>
               <div><dt>Téléphone</dt><dd><a href="tel:+221771513837">+221 77 151 38 37</a></dd></div>
-              <div><dt>E-mail</dt><dd><a href="mailto:contact@mbc-conseil.sn">contact@mbc-conseil.sn</a></dd></div>
+              <div><dt>E-mail</dt><dd><a href="mailto:mamadou.bakhoum@outlook.com">mamadou.bakhoum@outlook.com</a></dd></div>
               <div><dt>Disponibilité</dt><dd>Clients au Sénégal et à distance <span>Sur rendez-vous</span></dd></div>
             </dl>
           </div>
@@ -542,8 +593,17 @@ export default function Home() {
             </div>
             <label>Contexte et résultat recherché<textarea name="message" rows={5} placeholder="Expliquez la situation en quelques lignes, sans joindre de document confidentiel." required /></label>
             <label className="consent"><input type="checkbox" required /><span>J’accepte que MBC utilise ces informations uniquement pour qualifier ma demande.</span></label>
-            <button type="submit" className="submit-btn">Transmettre la demande <span>→</span></button>
-            <p className={`form-note ${submitted ? "success" : ""}`} aria-live="polite">{submitted ? `Demande préparée sous la référence ${reference}. La connexion à la messagerie MBC sera activée dans la version finale.` : "Maquette interactive — aucun paiement ni document confidentiel n’est demandé ici."}</p>
+            <div className="form-actions">
+              <button type="submit" className="submit-btn">Continuer sur WhatsApp <span>→</span></button>
+              <button type="button" className="email-btn" onClick={(event) => prepareEmail(event.currentTarget.form)}>Utiliser l’e-mail</button>
+            </div>
+            <p className={`form-note ${deliveryChannel ? "success" : ""}`} aria-live="polite">
+              {deliveryChannel === "whatsapp" && requestReference
+                ? `Votre message ${requestReference} est prêt dans WhatsApp. Vérifiez-le, puis appuyez sur Envoyer pour le transmettre à MBC.`
+                : deliveryChannel === "email" && requestReference
+                  ? `Votre e-mail ${requestReference} est prêt dans votre messagerie. Vérifiez-le, puis envoyez-le à MBC.`
+                  : "Aucune donnée n’est stockée sur le site. La transmission s’effectue dans WhatsApp ou votre messagerie."}
+            </p>
           </form>
         </div>
       </section>

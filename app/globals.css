@@ -351,8 +351,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -.022em; }
 .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
 .contact-form .consent { display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-body); font-size: 9.5px; letter-spacing: 0; line-height: 1.5; text-transform: none; }
 .consent input { width: 15px; height: 15px; margin: 1px 0 0; accent-color: var(--burgundy); }
+.form-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .submit-btn { display: inline-flex; align-items: center; justify-content: center; gap: 14px; min-height: 48px; padding: 12px 20px; color: var(--navy-deep); border: 0; background: var(--gold); font-size: 12px; font-weight: 700; cursor: pointer; }
 .submit-btn:hover { background: var(--gold-light); }
+.email-btn { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 12px 19px; color: var(--navy-deep); border: 1px solid var(--navy-deep); background: transparent; font-size: 11px; font-weight: 700; cursor: pointer; transition: .2s ease; }
+.email-btn:hover { color: var(--paper); background: var(--navy-deep); }
+.submit-btn:focus-visible, .email-btn:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 2px; }
 .form-note { margin: 11px 0 0; color: var(--ink-soft); font-size: 9.5px; }
 .form-note.success { color: var(--burgundy); font-weight: 600; }
 
@@ -483,6 +487,8 @@ footer { padding: 37px 0 0; color: rgba(247,244,237,.58); border-top: 1px solid 
   .pricing-switch button { padding: 11px 8px; }
   .payment-ticket { padding: 25px 21px; }
   .contact-form { padding: 27px 20px; }
+  .form-actions { flex-direction: column; }
+  .form-actions button { width: 100%; }
   .selected-need { align-items: flex-start; flex-direction: column; }
   .selected-need strong { text-align: left; }
   .consultant-heading { margin-bottom: 42px; }
