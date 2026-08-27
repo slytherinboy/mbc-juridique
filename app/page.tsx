@@ -225,7 +225,7 @@ export default function Home() {
     if (!request) return;
 
     setDeliveryChannel("whatsapp");
-    window.open(`https://wa.me/221771513837?text=${encodeURIComponent(request.message)}`, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/221770161690?text=${encodeURIComponent(request.message)}`, "_blank", "noopener,noreferrer");
   }
 
   function prepareEmail(form: HTMLFormElement | null) {
@@ -285,7 +285,7 @@ export default function Home() {
             <p className="lead">M.B.C transforme une question juridique complexe en un parcours concret : identifier le besoin, qualifier le risque et choisir la bonne action.</p>
             <div className="cta-row">
               <a href="#orientation" className="btn btn-primary">Identifier mon besoin <span>→</span></a>
-              <a href="tel:+221771513837" className="btn btn-ghost">Parler à un conseiller</a>
+              <a href="tel:+221770161690" className="btn btn-ghost">Parler à un conseiller</a>
             </div>
             <div className="hero-proof" aria-label="Informations pratiques">
               <span><b>8</b> domaines couverts</span>
@@ -572,7 +572,7 @@ export default function Home() {
             <p className="contact-lead">N’envoyez pas de documents confidentiels à cette étape. Décrivez simplement le contexte et le résultat recherché.</p>
             <div className="contact-reference"><span>RÉFÉRENCE DE LA DEMANDE</span><strong>{requestReference ?? "GÉNÉRÉE À L’ENVOI"}</strong><i className={requestReference ? "active" : ""} /></div>
             <dl>
-              <div><dt>Téléphone</dt><dd><a href="tel:+221771513837">+221 77 151 38 37</a></dd></div>
+              <div><dt>Téléphone du cabinet</dt><dd><a href="tel:+221770161690">+221 77 016 16 90</a></dd></div>
               <div><dt>E-mail</dt><dd><a href="mailto:mamadou.bakhoum@outlook.com">mamadou.bakhoum@outlook.com</a></dd></div>
               <div><dt>Disponibilité</dt><dd>Clients au Sénégal et à distance <span>Sur rendez-vous</span></dd></div>
             </dl>
@@ -634,7 +634,7 @@ export default function Home() {
           </a>
         </div>
       </footer>
-      <div className="mobile-actions" aria-label="Actions rapides"><a href="tel:+221771513837">Appeler</a><a href="#contact">Ouvrir un dossier</a></div>
+      <div className="mobile-actions" aria-label="Actions rapides"><a href="tel:+221770161690">Appeler</a><a href="#contact">Ouvrir un dossier</a></div>
     </main>
   );
 }
