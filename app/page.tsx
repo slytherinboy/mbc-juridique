@@ -127,12 +127,31 @@ const expertises = [
   ["Négociation contractuelle", "Clauses sensibles, stratégie de négociation et sécurisation des accords."],
 ];
 
-const onlineServices = [
-  ["Consultation à distance", "30 minutes par téléphone ou visio", "15 000 FCFA"],
-  ["Avis juridique écrit", "Question précise, réponse structurée", "20 000 FCFA"],
-  ["Relecture de contrat", "Jusqu’à 10 pages, remarques incluses", "25 000 FCFA"],
-  ["Formation en ligne", "Module et format adaptés au groupe", "Sur devis"],
-];
+const onlineServices = {
+  senegal: {
+    label: "Sénégal",
+    heading: "Tarifs en FCFA",
+    note: "Prestations destinées aux clients au Sénégal.",
+    services: [
+      ["Consultation à distance", "45 minutes par téléphone ou visioconférence, tous domaines", "100 000 FCFA"],
+      ["Avis juridique écrit", "Selon la complexité de la question et le temps de recherche", "70 000 – 200 000 FCFA"],
+      ["Relecture de contrat", "Jusqu’à 10 pages, du contrat simple au contrat commercial ou OHADA", "75 000 – 250 000 FCFA"],
+      ["Accompagnement d’appel d’offres", "Selon la valeur et la complexité du contrat négocié", "200 000 – 750 000 FCFA"],
+    ],
+  },
+  international: {
+    label: "International",
+    heading: "Tarifs en euros TTC",
+    note: "Prestations à distance facturées en euros, toutes taxes comprises.",
+    services: [
+      ["Consultation à distance", "30 minutes par téléphone ou visioconférence", "80 € – 150 € TTC"],
+      ["Avis juridique écrit", "Selon la complexité de la question et le temps de recherche", "200 € – 450 € TTC"],
+      ["Relecture de contrat", "Jusqu’à 10 pages, du contrat simple au contrat commercial complexe", "250 € – 500 € TTC"],
+    ],
+  },
+} as const;
+
+type PricingZone = keyof typeof onlineServices;
 
 const commitments = [
   ["Confidentialité", "Les informations sont utilisées uniquement pour qualifier et traiter votre demande."],
@@ -148,6 +167,7 @@ export default function Home() {
   const [clientType, setClientType] = useState("Entreprise / dirigeant");
   const [urgency, setUrgency] = useState("À planifier");
   const [meetingMode, setMeetingMode] = useState("Téléphone / visioconférence");
+  const [pricingZone, setPricingZone] = useState<PricingZone>("senegal");
   const [submitted, setSubmitted] = useState(false);
 
   const reference = useMemo(
@@ -325,8 +345,8 @@ export default function Home() {
       <section className="consultant-section" id="consultant">
         <div className="wrap">
           <div className="consultant-heading split-heading">
-            <div><p className="eyebrow">Votre interlocuteur</p><h2>La confiance commence par un professionnel identifié.</h2></div>
-            <p>Le conseil gagne en valeur lorsque l’analyse, la recommandation et le suivi sont portés par le même interlocuteur.</p>
+            <div><p className="eyebrow">Votre interlocuteur</p><h2>Plus de 10 ans d’expérience au service des entreprises et institutions financières.</h2></div>
+            <p>Une expertise sénior en droit des affaires OHADA, droit financier et bancaire UEMOA, contentieux et négociation contractuelle.</p>
           </div>
 
           <div className="consultant-showcase">
@@ -335,17 +355,17 @@ export default function Home() {
               <div className="portrait-depth depth-back" aria-hidden="true" />
               <div className="portrait-depth depth-mid" aria-hidden="true" />
               <div className="portrait-frame">
-                <img src="mamadou-bakhoum.jpeg" alt="Mamadou Bakhoum, consultant juridique et fondateur de Mind Business Consulting" />
+                <img src="mamadou-bakhoum.jpeg" alt="Mamadou Bakhoum, juriste sénior spécialisé en droit des affaires OHADA" />
               </div>
               <div className="portrait-badge">
                 <span>MBC</span>
-                <strong>Depuis 2017</strong>
-                <small>Conseil • Assistance • Formation</small>
+                <strong>+10 ans</strong>
+                <small>D’expertise juridique</small>
               </div>
               <div className="portrait-caption">
-                <span>CONSULTANT PRINCIPAL</span>
-                <strong>Mamadou Bakhoum</strong>
-                <small>Fondateur de Mind Business Consulting</small>
+                <span>JURISTE SÉNIOR</span>
+                <strong>Mamadou BAKHOUM</strong>
+                <small>Affaires OHADA • Banque UEMOA • Contentieux</small>
               </div>
 
               <aside className="consultant-sidecard" aria-label="Approche de consultation MBC">
@@ -365,43 +385,55 @@ export default function Home() {
             <div className="consultant-profile">
               <div className="profile-intro">
                 <span className="profile-index">PROFIL / 01</span>
-                <div><h3>Mamadou Bakhoum</h3><p>Consultant juridique • Fondateur de MBC</p></div>
+                <div><h3>Mamadou BAKHOUM</h3><p>Juriste Sénior</p></div>
               </div>
-              <p className="consultant-lead">Mamadou Bakhoum conduit personnellement les consultations MBC. Sa pratique associe analyse juridique, compréhension des enjeux opérationnels et restitution claire, pour aider chaque client à mesurer ses risques et décider de la prochaine action utile.</p>
+
+              <p className="profile-specialties">Droit des Affaires OHADA <span>|</span> Droit Financier &amp; Bancaire UEMOA <span>|</span> Contentieux des Affaires</p>
+              <p className="consultant-lead">Plus de 10 ans d’expérience au service des entreprises et institutions financières.</p>
 
               <div className="profile-proof-grid" aria-label="Repères professionnels">
-                <article><span>01</span><strong>Depuis 2017</strong><small>Direction de MBC</small></article>
-                <article><span>02</span><strong>Conseil &amp; formation</strong><small>Une pratique complète</small></article>
-                <article><span>03</span><strong>Suivi direct</strong><small>Un interlocuteur identifié</small></article>
+                <article><span>01</span><strong>+10 ans</strong><small>D’expertise juridique</small></article>
+                <article><span>02</span><strong>Major de promotion</strong><small>Licence &amp; Master</small></article>
+                <article><span>03</span><strong>Doctorant</strong><small>Université Paris Cité</small></article>
               </div>
 
+              <div className="consultant-biography">
+                <p>Juriste confirmé spécialisé en droit des affaires, major de promotion en Licence comme en Master, Mamadou BAKHOUM met à votre service plus de dix années d’expertise dans le droit des contrats, le droit des sûretés, le recouvrement de créances et la rédaction de conventions bancaires complexes.</p>
+                <p>Fort d’une solide maîtrise des réglementations prudentielles UEMOA et de la législation OHADA, il accompagne aussi bien les institutions bancaires que les entreprises dans la sécurisation de leurs opérations, la gestion de leur contentieux et la structuration de leurs contrats. Il est également doctorant à l’Université Paris Cité et formateur reconnu auprès de plusieurs universités et institutions professionnelles de la place.</p>
+                <p>Il justifie par ailleurs d’une expertise pointue en passation des marchés publics et en montage de contrats de Partenariat Public-Privé (PPP), reconnue par une certification IRCOP en gestion réglementaire de la commande publique. Cette expertise s’accompagne d’une solide maîtrise des techniques de négociation contractuelle, lui permettant d’accompagner ses clients à chaque étape de leurs projets : élaboration des dossiers d’appel d’offres, sécurisation juridique des montages contractuels et défense des intérêts des parties lors des négociations.</p>
+              </div>
+            </div>
+
+            <div className="consultant-detail-grid">
               <div className="experience-list">
-              <article>
-                <span>01</span>
-                <div><h3>Fondateur et dirigeant de MBC depuis 2017</h3><p>Une pratique consacrée au conseil, à l’assistance juridique et à la formation des professionnels.</p></div>
-              </article>
-              <article>
-                <span>02</span>
-                <div><h3>Expérience en cabinet d’affaires</h3><p>Un parcours comprenant une expérience au sein de GENI &amp; KEBE, cabinet membre de DLA Piper Africa.</p></div>
-              </article>
-              <article>
-                <span>03</span>
-                <div><h3>Consultant et formateur</h3><p>Des interventions professionnelles sur la négociation contractuelle, la prévention des contentieux et la sécurisation des opérations.</p></div>
-              </article>
+                <article>
+                  <span>01</span>
+                  <div><h3>Contrats, sûretés et conventions bancaires</h3><p>Sécurisation des engagements, des financements et des opérations complexes.</p></div>
+                </article>
+                <article>
+                  <span>02</span>
+                  <div><h3>Marchés publics &amp; Partenariats Public-Privé</h3><p>Expertise reconnue par une certification IRCOP en gestion réglementaire de la commande publique.</p></div>
+                </article>
+                <article>
+                  <span>03</span>
+                  <div><h3>Formation &amp; négociation contractuelle</h3><p>Accompagnement des professionnels, défense des intérêts et sécurisation des montages contractuels.</p></div>
+                </article>
               </div>
 
-              <div className="competence-block">
-                <span className="competence-label">DOMAINES DE PRATIQUE</span>
-                <div className="competence-grid">
-                  {["Droit des affaires", "Procédures civiles & commerciales", "Recouvrement de créances", "Droit immobilier", "Négociation contractuelle", "Formation professionnelle"].map((skill, index) => <span key={skill}><b>0{index + 1}</b>{skill}</span>)}
+              <div className="consultant-practice-panel">
+                <div className="competence-block">
+                  <span className="competence-label">DOMAINES DE PRATIQUE</span>
+                  <div className="competence-grid">
+                    {["Droit des affaires OHADA", "Droit financier & bancaire UEMOA", "Droit des contrats & sûretés", "Recouvrement & contentieux des affaires", "Marchés publics & PPP", "Négociation contractuelle"].map((skill, index) => <span key={skill}><b>0{index + 1}</b>{skill}</span>)}
+                  </div>
                 </div>
-              </div>
 
-              <div className="consultant-actions">
-                <a className="linkedin-link" href="https://www.linkedin.com/in/mamadou-bakhoum-b08107153/" target="_blank" rel="noreferrer">
-                  <span aria-hidden="true">in</span> Consulter son parcours LinkedIn <b>↗</b>
-                </a>
-                <a className="consultant-cta" href="#contact">Demander une consultation <span>→</span></a>
+                <div className="consultant-actions">
+                  <a className="linkedin-link" href="https://www.linkedin.com/in/mamadou-bakhoum-b08107153/" target="_blank" rel="noreferrer">
+                    <span aria-hidden="true">in</span> Consulter son parcours LinkedIn <b>↗</b>
+                  </a>
+                  <a className="consultant-cta" href="#contact">Demander une consultation <span>→</span></a>
+                </div>
               </div>
             </div>
           </div>
@@ -440,19 +472,39 @@ export default function Home() {
         <div className="wrap">
           <div className="section-heading split-heading">
             <div><p className="eyebrow">Prestations à distance</p><h2>Simple à demander, cadré avant paiement</h2></div>
-            <p>Les tarifs sont indicatifs. MBC confirme la prestation et transmet les instructions de paiement après validation du dossier.</p>
+            <p>Choisissez votre zone tarifaire. MBC confirme le périmètre et le montant exact avant de transmettre les instructions de paiement.</p>
           </div>
           <div className="online-layout">
-            <div className="online-services">
-              {onlineServices.map(([title, text, price]) => (
-                <article className="online-service" key={title}><div><h3>{title}</h3><p>{text}</p></div><strong>{price}</strong></article>
-              ))}
+            <div className="pricing-panel">
+              <div className="pricing-switch" aria-label="Choisir la zone tarifaire">
+                {(Object.keys(onlineServices) as PricingZone[]).map((zone) => (
+                  <button
+                    type="button"
+                    aria-pressed={pricingZone === zone}
+                    className={pricingZone === zone ? "active" : ""}
+                    onClick={() => setPricingZone(zone)}
+                    key={zone}
+                  >
+                    <span>{zone === "senegal" ? "SN" : "INT"}</span>
+                    {onlineServices[zone].label}
+                  </button>
+                ))}
+              </div>
+              <div className="pricing-market-heading">
+                <span>{onlineServices[pricingZone].heading}</span>
+                <p>{onlineServices[pricingZone].note}</p>
+              </div>
+              <div className="online-services" aria-live="polite">
+                {onlineServices[pricingZone].services.map(([title, text, price]) => (
+                  <article className="online-service" key={title}><div><h3>{title}</h3><p>{text}</p></div><strong>{price}</strong></article>
+                ))}
+              </div>
             </div>
             <aside className="payment-ticket">
               <div className="ticket-status"><span>PAIEMENT</span><b>APRÈS VALIDATION</b></div>
               <h3>Une séquence sécurisée</h3>
               <ol>
-                <li><b>01</b><span>Demande envoyée</span></li><li><b>02</b><span>Périmètre et tarif confirmés</span></li><li><b>03</b><span>Référence de dossier transmise</span></li><li><b>04</b><span>Paiement Wave ou Orange Money</span></li>
+                <li><b>01</b><span>Demande envoyée</span></li><li><b>02</b><span>Périmètre et tarif confirmés</span></li><li><b>03</b><span>Référence de dossier transmise</span></li><li><b>04</b><span>Instructions de paiement transmises</span></li>
               </ol>
               <a href="#contact">Faire qualifier ma demande <span>→</span></a>
               <p>Ne transmettez aucun paiement avant confirmation de MBC.</p>
@@ -512,6 +564,14 @@ export default function Home() {
           <div><BrandSeal /><span>© 2026 Mind Business Consulting<br />Conseil • Assistance • Formation</span></div>
           <nav aria-label="Navigation secondaire"><a href="#orientation">Votre besoin</a><a href="#solutions">Solutions</a><a href="#consultant">Le consultant</a><a href="#contact">Contact</a></nav>
           <span>Clients au Sénégal<br />et à distance</span>
+        </div>
+        <div className="wrap footer-signature">
+          <span>Site conçu par</span>
+          <a href="https://statureweb.com" target="_blank" rel="noopener noreferrer" aria-label="Découvrir STATURE, conseil et solutions digitales">
+            <strong>STATURE</strong>
+            <small>Conseil &amp; solutions digitales</small>
+            <i aria-hidden="true">↗</i>
+          </a>
         </div>
       </footer>
       <div className="mobile-actions" aria-label="Actions rapides"><a href="tel:+221771513837">Appeler</a><a href="#contact">Ouvrir un dossier</a></div>
