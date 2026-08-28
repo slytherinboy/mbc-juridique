@@ -333,7 +333,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -.022em; }
 .contact-lead { max-width: 44ch; margin: 20px 0 31px; color: rgba(247,244,237,.64); font-size: 13px; }
 .contact-reference { position: relative; margin-bottom: 34px; padding: 18px 20px; border: 1px solid rgba(184,147,90,.5); background: rgba(247,244,237,.035); }
 .contact-reference span { display: block; margin-bottom: 5px; color: var(--gold-light); font-family: var(--font-mono); font-size: 8px; letter-spacing: .12em; }
-.contact-reference strong { color: var(--paper); font-family: var(--font-mono); font-size: 14px; font-weight: 500; }
+.contact-reference strong { display: block; max-width: calc(100% - 32px); color: var(--paper); font-family: var(--font-mono); font-size: 14px; font-weight: 500; }
+.contact-reference p { max-width: 46ch; margin: 10px 0 0; color: rgba(247,244,237,.58); font-size: 10.5px; line-height: 1.55; }
 .contact-reference i { position: absolute; width: 8px; height: 8px; right: 18px; top: 21px; border-radius: 50%; background: rgba(247,244,237,.25); }
 .contact-reference i.active { background: #75a177; box-shadow: 0 0 0 5px rgba(117,161,119,.12); }
 .contact-info dl { display: flex; flex-direction: column; gap: 16px; margin: 0; }

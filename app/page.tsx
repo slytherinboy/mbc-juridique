@@ -570,7 +570,16 @@ export default function Home() {
             <p className="eyebrow">Ouvrir un dossier</p>
             <h2>Donnez-nous l’essentiel. MBC vous aide à structurer la suite.</h2>
             <p className="contact-lead">N’envoyez pas de documents confidentiels à cette étape. Décrivez simplement le contexte et le résultat recherché.</p>
-            <div className="contact-reference"><span>RÉFÉRENCE DE LA DEMANDE</span><strong>{requestReference ?? "GÉNÉRÉE À L’ENVOI"}</strong><i className={requestReference ? "active" : ""} /></div>
+            <div className="contact-reference" aria-live="polite">
+              <span>RÉFÉRENCE DE VOTRE DEMANDE</span>
+              <strong>{requestReference ?? "GÉNÉRÉE AUTOMATIQUEMENT APRÈS L’ENVOI"}</strong>
+              <p>
+                {requestReference
+                  ? "Conservez cette référence pour vos prochains échanges avec MBC."
+                  : "Elle permettra d’identifier votre demande et de suivre vos échanges avec MBC."}
+              </p>
+              <i className={requestReference ? "active" : ""} />
+            </div>
             <dl>
               <div><dt>Téléphone du cabinet</dt><dd><a href="tel:+221770161690">+221 77 016 16 90</a></dd></div>
               <div><dt>E-mail</dt><dd><a href="mailto:mamadou.bakhoum@outlook.com">mamadou.bakhoum@outlook.com</a></dd></div>
