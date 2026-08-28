@@ -197,9 +197,7 @@ export default function Home() {
     const value = (key: string) => String(data.get(key) ?? "").trim();
     const reference = requestReference ?? createRequestReference();
     const message = [
-      "Bonjour M.B.C,",
-      "",
-      "Je souhaite soumettre une demande juridique à Mind Business Consulting.",
+      "Bonjour, je souhaite soumettre une demande juridique à M.B.C.",
       "",
       `Référence : ${reference}`,
       `Nom : ${value("nom")}`,
