@@ -445,12 +445,12 @@ export default function Home() {
               <div className="profile-proof-grid" aria-label="Repères professionnels">
                 <article><span>01</span><strong>+10 ans</strong><small>D’expertise juridique</small></article>
                 <article><span>02</span><strong>Major de promotion</strong><small>Licence &amp; Master</small></article>
-                <article><span>03</span><strong>Doctorant</strong><small>Université Paris Cité</small></article>
+                <article><span>03</span><strong>Doctorant en Droit</strong></article>
               </div>
 
               <div className="consultant-biography">
                 <p>Juriste confirmé spécialisé en droit des affaires, major de promotion en Licence comme en Master, Mamadou BAKHOUM met à votre service plus de dix années d’expertise dans le droit des contrats, le droit des sûretés, le recouvrement de créances et la rédaction de conventions bancaires complexes.</p>
-                <p>Fort d’une solide maîtrise des réglementations prudentielles UEMOA et de la législation OHADA, il accompagne aussi bien les institutions bancaires que les entreprises dans la sécurisation de leurs opérations, la gestion de leur contentieux et la structuration de leurs contrats. Il est également doctorant à l’Université Paris Cité et formateur reconnu auprès de plusieurs universités et institutions professionnelles de la place.</p>
+                <p>Fort d’une solide maîtrise des réglementations prudentielles UEMOA et de la législation OHADA, il accompagne aussi bien les institutions bancaires que les entreprises dans la sécurisation de leurs opérations, la gestion de leur contentieux et la structuration de leurs contrats. Il est également doctorant en Droit et formateur reconnu auprès de plusieurs universités et institutions professionnelles de la place.</p>
                 <p>Il justifie par ailleurs d’une expertise pointue en passation des marchés publics et en montage de contrats de Partenariat Public-Privé (PPP), reconnue par une certification IRCOP en gestion réglementaire de la commande publique. Cette expertise s’accompagne d’une solide maîtrise des techniques de négociation contractuelle, lui permettant d’accompagner ses clients à chaque étape de leurs projets : élaboration des dossiers d’appel d’offres, sécurisation juridique des montages contractuels et défense des intérêts des parties lors des négociations.</p>
               </div>
             </div>
