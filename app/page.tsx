@@ -233,7 +233,7 @@ export default function Home() {
 
     setDeliveryChannel("email");
     const emailSubject = `Demande juridique MBC — ${request.reference}`;
-    window.location.href = `mailto:mamadou.bakhoum@outlook.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(request.message)}`;
+    window.location.href = `mailto:mbusinessconsulting@outlook.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(request.message)}`;
   }
 
   return (
@@ -580,7 +580,7 @@ export default function Home() {
             </div>
             <dl>
               <div><dt>Téléphone du cabinet</dt><dd><a href="tel:+221770161690">+221 77 016 16 90</a></dd></div>
-              <div><dt>E-mail</dt><dd><a href="mailto:mamadou.bakhoum@outlook.com">mamadou.bakhoum@outlook.com</a></dd></div>
+              <div><dt>E-mail</dt><dd><a href="mailto:mbusinessconsulting@outlook.com">mbusinessconsulting@outlook.com</a></dd></div>
               <div><dt>Disponibilité</dt><dd>Clients au Sénégal et à distance <span>Sur rendez-vous</span></dd></div>
             </dl>
           </div>
